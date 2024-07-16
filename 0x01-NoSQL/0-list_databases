@@ -1,3 +1,4 @@
-// list all databases
+// list all databases in a session
+
 show dbs
 
