@@ -38,8 +38,14 @@ class Cache:
 
     def get_str(self, key: str) -> str:
         """ get string """
-        return self._redis.get(key, fn=lambda d: d.decode('utf-8'))
+        value = self._redis.get(key)
+        return value.decode("utf-8")
 
     def get_int(self, key: str) -> int:
         """ get integer """
-        return self._redis.get(key, fn=int)
+        value = self._redis.get(key)
+        try:
+            value = int(value.decode("utf-8"))
+        except Exception:
+            value = 0
+        return value
