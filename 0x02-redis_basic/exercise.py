@@ -28,22 +28,19 @@ class Cache:
 
     def get(self, key: str,
             fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
-        """
-        get the value from redis
-        key: string
-        """
+        '''convert the data back to the desired format'''
         value = self._redis.get(key)
         if fn:
-            return fu(value)
+            value = fn(value)
         return value
 
     def get_str(self, key: str) -> str:
-        """ get string """
+        '''parametrize Cache.get with correct conversion function'''
         value = self._redis.get(key)
         return value.decode("utf-8")
 
     def get_int(self, key: str) -> int:
-        """ get integer """
+        '''parametrize Cache.get with correct conversion function'''
         value = self._redis.get(key)
         try:
             value = int(value.decode("utf-8"))
