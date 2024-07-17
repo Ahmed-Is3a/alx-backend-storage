@@ -4,7 +4,7 @@ Wrinting strings to redis
 """
 import redis
 from uuid import uuid4
-from typing import Union, Optional
+from typing import Union, Optional, Callable
 
 
 class Cache:
@@ -26,14 +26,12 @@ class Cache:
         self._redis.set(rkey, data)
         return rkey
 
-    def get(self, key: str, fn: Optional[callable] = None) -> any:
+    def get(self, key: str, fn: Optional[Callable] = None) -> any:
         """
         get the value from redis
         key: string
         """
         value = self._redis.get(key)
-        if value is None:
-            return None
         if fn:
             return fu(value)
         return value
