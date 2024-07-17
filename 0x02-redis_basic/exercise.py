@@ -26,7 +26,8 @@ class Cache:
         self._redis.set(rkey, data)
         return rkey
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> any:
+    def get(self, key: str,
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """
         get the value from redis
         key: string
